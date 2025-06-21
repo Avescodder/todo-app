@@ -3,9 +3,9 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import AuthForm from '../../components/AuthForm';
-import { authAPI } from '../../utils/api';
-import { isAuthenticated } from '../../utils/auth';
+import AuthForm from '../../../components/AuthForm';
+import { authAPI } from '../../../utils/api';
+import { isAuthenticated } from '../../../utils/auth';
 
 export default function Register() {
   const [isLoading, setIsLoading] = useState(false);

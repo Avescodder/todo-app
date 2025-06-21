@@ -7,9 +7,9 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
-      - POSTGRES_DB=todoapp
-      - POSTGRES_USER=todouser
-      - POSTGRES_PASSWORD=todopass
+      - POSTGRES_DB=todoshka
+      - POSTGRES_USER=todoappuser
+      - POSTGRES_PASSWORD=todopass123
     ports:
       - "5432:5432"
 
@@ -26,7 +26,7 @@ services:
       - "8000:8000"
     environment:
       - DEBUG=1
-      - DATABASE_URL=postgresql://todouser:todopass@db:5432/todoapp
+      - DATABASE_URL=postgresql://todoappuser:todopass123@db:5432/todoshka
       - ALLOWED_HOSTS=localhost,127.0.0.1,backend
       - CORS_ALLOWED_ORIGINS=http://localhost:3000,http://127.0.0.1:3000
     depends_on:
@@ -43,6 +43,7 @@ services:
       - "3000:3000"
     environment:
       - NEXT_PUBLIC_API_URL=http://localhost:8000
+      - NODE_ENV= development
     depends_on:
       - backend
 
