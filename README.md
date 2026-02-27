@@ -1,145 +1,155 @@
-# Todo App - Fullstack Application
+# Todo App — Fullstack Application
 
-Простое веб-приложение "Список задач" с регистрацией, аутентификацией и управлением задачами.
+A web-based task management application with user registration, authentication, and full CRUD functionality.
 
-## Технологический стек
+## Technology Stack
 
 **Backend:**
 - Django REST Framework
 - PostgreSQL
-- JWT аутентификация
+- JWT Authentication
 - Docker
 
 **Frontend:**
 - Next.js 14
 - React
 - Tailwind CSS
-- Axios для API запросов
+- Axios
 
-## Быстрый запуск
+## Quick Start
 
-### Предварительные требования
+### Prerequisites
 
-- Docker и Docker Compose
+- Docker and Docker Compose
 - Git
 
-### Шаги запуска
+### Setup
 
-1. **Клонируйте репозиторий и перейдите в папку:**
+1. **Clone the repository and navigate to the project directory:**
 ```bash
 cd todo-app
 ```
 
-2. **Создайте файл .env в корне проекта:**
-Смотри .env.example
+2. **Create a `.env` file in the project root:**
 
-3. **Запустите приложение:**
+Refer to `.env.example` for the required variables.
+
+3. **Build and start the application:**
 ```bash
 docker-compose up --build
 ```
 
-4. **Выполните миграции (в новом терминале):**
+4. **Run database migrations (in a separate terminal):**
 ```bash
 docker-compose exec backend python manage.py migrate
 ```
 
-5. **Создайте суперпользователя (опционально):**
+5. **Create a superuser (optional):**
 ```bash
 docker-compose exec backend python manage.py createsuperuser
 ```
 
-## Доступ к приложению
+## Access
 
-- **Frontend:** http://localhost:3000
-- **Backend API:** http://localhost:8000/api
-- **Django Admin:** http://localhost:8000/admin
+| Service | URL |
+|---|---|
+| Frontend | http://localhost:3000 |
+| Backend API | http://localhost:8000/api |
+| Django Admin | http://localhost:8000/admin |
 
 ## API Endpoints
 
-### Аутентификация
-- `POST /api/auth/register/` - Регистрация
-- `POST /api/auth/login/` - Вход
-- `POST /api/auth/refresh/` - Обновление токена
+### Authentication
 
-### Задачи
-- `GET /api/tasks/` - Список задач
-- `POST /api/tasks/` - Создание задачи
-- `GET /api/tasks/{id}/` - Получение задачи
-- `PUT /api/tasks/{id}/` - Обновление задачи
-- `DELETE /api/tasks/{id}/` - Удаление задачи
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/api/auth/register/` | Register a new user |
+| POST | `/api/auth/login/` | Obtain access token |
+| POST | `/api/auth/refresh/` | Refresh access token |
 
-## Функционал
+### Tasks
 
-✅ Регистрация и аутентификация пользователей  
-✅ JWT токены для безопасности  
-✅ CRUD операции для задач  
-✅ Фильтрация задач по статусу  
-✅ Сортировка по дате создания  
-✅ Адаптивный дизайн  
-✅ Валидация данных  
-✅ Обработка ошибок  
-✅ Docker контейнеризация  
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/tasks/` | List all tasks |
+| POST | `/api/tasks/` | Create a task |
+| GET | `/api/tasks/{id}/` | Retrieve a task |
+| PUT | `/api/tasks/{id}/` | Update a task |
+| DELETE | `/api/tasks/{id}/` | Delete a task |
 
-## Разработка
+## Features
 
-### Остановка контейнеров
+- User registration and authentication
+- JWT-based authorization
+- Full CRUD operations for tasks
+- Task filtering by status
+- Sorting by creation date
+- Responsive design
+- Input validation
+- Error handling
+- Docker containerization
+
+## Development
+
+### Stop containers
 ```bash
 docker-compose down
 ```
 
-### Перезапуск отдельного сервиса
+### Restart a specific service
 ```bash
 docker-compose restart backend
 docker-compose restart frontend
 ```
 
-### Просмотр логов
+### View logs
 ```bash
 docker-compose logs backend
 docker-compose logs frontend
 ```
 
-### Выполнение команд Django
+### Run Django management commands
 ```bash
 docker-compose exec backend python manage.py shell
 docker-compose exec backend python manage.py makemigrations
 ```
 
-## Тестирование API
+## API Testing
 
-### Регистрация
+### Register
 ```bash
 curl -X POST http://localhost:8000/api/auth/register/ \
   -H "Content-Type: application/json" \
   -d '{"username": "testuser", "email": "test@example.com", "password": "testpass123"}'
 ```
 
-### Логин
+### Login
 ```bash
 curl -X POST http://localhost:8000/api/auth/login/ \
   -H "Content-Type: application/json" \
   -d '{"username": "testuser", "password": "testpass123"}'
 ```
 
-### Создание задачи
+### Create a task
 ```bash
 curl -X POST http://localhost:8000/api/tasks/ \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
-  -d '{"title": "Моя задача", "description": "Описание задачи"}'
+  -d '{"title": "My task", "description": "Task description"}'
 ```
 
-## Возможные проблемы и решения
+## Troubleshooting
 
-### Порты заняты
-Если порты 3000 или 8000 заняты, измените их в `docker-compose.yml`
+### Ports already in use
 
-### Проблемы с правами доступа
+If ports 3000 or 8000 are occupied, update the port mappings in `docker-compose.yml`.
+
+### Permission issues
 ```bash
 sudo chown -R $USER:$USER .
 ```
 
-### Очистка Docker
+### Docker cleanup
 ```bash
 docker-compose down -v
 docker system prune -a
